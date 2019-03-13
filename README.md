@@ -24,6 +24,7 @@ PASSWORD_CHANGE_FREQUENCY = 7776000 # 90 days password change policy (set to Fal
 4) Extra options:
 - Set up an appropriate regex for your usernames in models.py, line 46
 - Uncomment and adapt a restricted email policy in admin.py, line 15 and over (this app does not include user self registration)
+- You can use the custom decorator *write_permission_required* in your views.
 
 
 
@@ -47,3 +48,4 @@ PASSWORD_CHANGE_FREQUENCY = 7776000 # 90 days password change policy (set to Fal
 4) Opzioni extra:
 - Impostare una regex per gli username in models.py, riga 46
 - Decommentare e adattare un vincolo per le email in admin.py, dalla riga 15 in poi (questa app non è pensata per consentire la registrazione autonoma degli utenti)
+- Puoi usare il decorator personalizzato *write_permission_required* nelle tue views.
