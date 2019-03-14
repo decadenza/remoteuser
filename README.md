@@ -15,6 +15,19 @@ INSTALLATION:
 
 3) Remaining in your project's settings.py, add this code (you can adapt it as you want):
 ```
+MIDDLEWARE = [
+    # ... KEEP ALL OTHERS ...
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.PersistentRemoteUserMiddleware', # Keep user in session and login only in first page
+]
+
+AUTHENTICATION_BACKENDS = [
+    # ... KEEP ALL OTHERS ...
+    'django.contrib.auth.backends.RemoteUserBackend', # Access via remote_user
+    'django.contrib.auth.backends.ModelBackend', # If the previus fails, access via model (REQUIRED FOR SUPERADMIN IF USER IS AnonymousUser!!!)
+    ]
+    
 # RemoteUser Login settings
 AUTH_USER_MODEL = 'remoteuser.RemoteUser'
 LOGIN_REDIRECT_URL = ""
@@ -27,25 +40,4 @@ PASSWORD_CHANGE_FREQUENCY = 7776000 # 90 days password change policy (set to Fal
 - You can use the custom decorator *write_permission_required* in your views.
 
 
-
-__ITALIAN__
-Autenticazione utenti attraverso il dominio (usando header in request.META['REMOTE_USER']) E usando i classici username e password.
-
-INSTALLAZIONE:
-
-1) Copiare la cartella remoteuser nella cartella principale.
-
-2) Installare l'applicazione inserendo 'remoteuser.apps.RemoteUserConfig' nella lista INSTALLED_APPS (vedi settings.py del tuo progetto).
-
-3) Sempre in settings.py del progetto, il seguente codice (adattare a piacere):
-```
-# RemoteUser Login settings
-AUTH_USER_MODEL = 'remoteuser.RemoteUser'
-LOGIN_REDIRECT_URL = ""
-LOGIN_URL = "/login"
-PASSWORD_CHANGE_FREQUENCY = 7776000 # 90 days password change policy (set to False to deactivate)
-```
-4) Opzioni extra:
-- Impostare una regex per gli username in models.py, riga 46
-- Decommentare e adattare un vincolo per le email in admin.py, dalla riga 15 in poi (questa app non è pensata per consentire la registrazione autonoma degli utenti)
-- Puoi usare il decorator personalizzato *write_permission_required* nelle tue views.
+N.B. Sorry, for the moment the python texts are in Italian only. Please contribute.
